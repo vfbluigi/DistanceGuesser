@@ -54,11 +54,7 @@ promise
       });
     }
   ).catch(
-    function(message) {
-      // Device Orientation Events are not supported
-  
-      // Implement manual fallback controls instead...
-    }
+    e => document.querySelector('#mag').innerHTML = "<p>Fehler lol</p>"
   );
 
 /*
