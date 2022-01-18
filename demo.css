@@ -284,3 +284,12 @@
 }
 
 /***************************************************************/
+#geoloc{
+	display:table;
+	margin:auto;
+}
+
+#p_geoloc, #geoloc button{
+	display:table-cell;
+	margin:auto;
+}

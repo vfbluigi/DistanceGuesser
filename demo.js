@@ -1,63 +1,36 @@
-/* Element verändern durch Austausch */
-function switchNoCSS(){
-	
-	/* Zu ersetzender Link, Zugriff über ID*/
-    var oldlink = document.getElementById("css");
-	/* Name der aktuellen CSS-Datei */
-    var href = oldlink.getAttribute("href");
-	/* Erzeugung des neuen Links */
-	var newlink = document.createElement("link");
-    
-	/* Attribute setzen */
-	newlink.setAttribute("id", "css");    
-    newlink.setAttribute("rel", "stylesheet");
-    newlink.setAttribute("type", "text/css");
-    
-	/* Nächste CSS-Datei wählen */
-	if(href != "no.css")
-		newlink.setAttribute("href", "no.css");    
-	else
-		newlink.setAttribute("href", "demo.css");
-	
-	/* Den alten Link durch neuen ersetzen */
-	var parent = oldlink.parentNode;
-	parent.replaceChild(newlink, oldlink);
+/****************** GPS **************************/
+var x = document.getElementById("p_geoloc");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
 }
 
-/* Element verändern durch Wertzuweisung */
-function switchReset(newcss){
-	
-	/* Zu ersetzender Link, Zugriff über ID*/
-    var oldlink = document.getElementById("css");
-	/* Name der aktuellen CSS-Datei */
-    var href = oldlink.getAttribute("href");
-    
-	/* Nächste CSS-Datei wählen */
-	if(href != newcss)
-		oldlink.setAttribute("href", newcss);
-	else
-		oldlink.setAttribute("href", "demo.css");
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;	
 }
 
-/*********    CSS togglen **************/
-/* Zugriff auf Element über ID */
-var togglecss  = document.getElementById('btn_togglecss');
-/* Klick Event Listener hinzufügen */
-togglecss.addEventListener ('click',
-    function() {           // anonyme Funktion
-      switchNoCSS();  
-    }, 
-    true);
-
-/*********    Reset.css togglen **************/
-/* Zugriff auf Element über ID */
-var togglereset  = document.getElementById('btn_togglereset');
-/* Klick Event Listener hinzufügen */
-togglereset.addEventListener ('click',
-    function() {           // anonyme Funktion
-      switchReset("reset.css");  
-    }, 
-    true);
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+/******************************************************/
 
 
 /* Viewport Breite */
