@@ -40,9 +40,31 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#acc").innerHTML = "X = " + ax + "<br>" + "Y = " + ay + "<br>" + "Z = " + az;
 }
 
+var promise = FULLTILT.getDeviceOrientation({'type': 'world'});
+
+promise
+  .then(
+    function(deviceOrientation) {
+      // Use `deviceOrientation` object to interact with device orientation sensors
+
+      deviceOrientation.listen(function() {
+        var currentOrientation = deviceOrientation.getScreenAdjustedEuler();
+
+        document.querySelector("#mag").innerHTML = "alpha = " + currentOrientation.alpha;
+      });
+    }
+  ).catch(
+    function(message) {
+      // Device Orientation Events are not supported
+  
+      // Implement manual fallback controls instead...
+    }
+  );
+
+/*
 window.addEventListener("deviceorientation", function(event) {
 	document.querySelector("#mag").innerHTML = "alpha = " + event.alpha + "<br>" + "beta = " + event.beta + "<br>" + "gamma = " + event.gamma;
-}, true);
+}, true);*/
 /******************************************************/
 /****************** Kamera **************************/
 // Reference to video element.
