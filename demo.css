@@ -14,7 +14,7 @@
 	}
 
 	h1 { 
-		font-size: 1.8rem; 
+		font-size: 5rem; 
 		font-style: italic;
 	}
 
@@ -89,7 +89,7 @@
 		margin: .7rem;
 		padding: .5rem;
 		border: none;
-		background-color: #e6f2f7;
+		background-color: rgb(250, 228, 189);
 	}
 
 	.header_bold {
@@ -97,13 +97,16 @@
 	}
 
 	#header_article{
-		background: #CCFFFF;
+		background: #343838;
+		color: white;
 	}
 
 /************************************************************************/
 /* Kindselektor */
 	#header_article > p{
-		margin-top: 2em;
+		margin-top: 1em;
+		text-align: center;
+		font-size: 25px;
 	}
 
 /************************************************************************/
@@ -218,8 +221,8 @@
 	.header_section_flex {
 		display: flex;
 		min-height: 10rem;
-		max-height: 30rem;
-		flex-direction: row; /*row-reverse, column, column-reverse*/
+		max-height: 20rem;
+		flex-direction: column; /*row-reverse, column, column-reverse*/
 		flex-wrap: nowrap; /*wrap*/
 	}
 
@@ -239,28 +242,6 @@
 		min-width: 20rem;
 	}
 /************Ende Flex********************/
-
-	main > div{
-		width: 100%;
-		margin:auto;
-	}
-	/** Ersetzen durch Flex Design **/
-	main img{
-			float: right;
-			margin-right: 20rem;
-			margin-top: 2rem;
-			margin-left: 0rem;
-	}	
-	#main_content p{
-			float: left;
-			margin-top: 5rem;
-			margin-left: 10rem;
-	}	
-
-	#anmerkung {
-		float:right;
-	}
-	/*******************************/
 }
 
 /***************************************************************/
@@ -292,4 +273,63 @@
 #p_geoloc, #geoloc button{
 	display:table-cell;
 	margin:auto;
+}
+
+#guess {
+	background-color: white;
+	width: 10%;
+	padding: 5px ;
+	margin: 5px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	font-size: 20px;
+	border: 3px solid #555;
+}
+
+#guess:focus {
+	box-shadow: 0 0  15px 4px rgba(0,0,0,0.06);
+	border: 3px solid rgb(0, 0, 0);
+}
+
+#submit {
+	background-color: white;
+	color: black;
+	border: 3px solid rgb(0, 0, 0);
+	padding: 5px;
+	font-size: 20px;
+	display: inline-block;
+	border-radius: 10px;
+	width: 10%;
+	height: 100%;
+}
+
+#submit:hover {
+	background-color: rgb(0, 0, 0);
+	color: white;
+}
+
+#guess_section {
+	text-align: center;
+	margin-top: 3rem;
+	flex-direction: column;
+}
+
+
+#result_section {
+	margin: 3rem 20rem;
+	padding: 2rem;
+	border: none;
+	background-color: rgb(0, 0, 0);
+	color: white;
+	visibility: hidden;
+}
+
+#result_section > h1 {
+	font-size: 2rem;
+	text-align: center;
+}
+
+#result_section > p {
+	font-size: 5rem;
+	text-align: center;
 }
