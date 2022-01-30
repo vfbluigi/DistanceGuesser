@@ -14,7 +14,7 @@
 	}
 
 	h1 { 
-		font-size: 5rem; 
+		font-size: 2.5rem; 
 		font-style: italic;
 	}
 
@@ -32,12 +32,10 @@
 		margin-bottom: 2rem;		
 	}
 /*Ende*/
-	li { 
-		font-size: 1.2rem;
-	}
 
 	body {
-		background-image: url(back.jpg);
+		background-color: #343838;
+		height: 50rem;
 	}
 
 	main {
@@ -48,149 +46,47 @@
 
 	button {
 		font-size: 1.3rem;
-		width: 15rem;
-		height: 7rem;
+		width: 10rem;
+		height: 100%;
 		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.6);
 		text-align: center;
-	}
-
-/************************************************************************/
-/* Nachfahrenselektor */
-	main img{
-		width: 15rem;
-		height: 15rem;
-	}
-
-	#main_content p{
-		margin-top: 1rem; 
-		margin-left:2rem;
-		display:table;
-		border: 3px solid;
-		border-color: #555555;
-		padding: 1em;
-	}
-
-    /*Aufgabe main span als Tabellenzeile margin 1rem*/
-	main span{
-		display: table-row;
-		margin: 1em;
-	}
-	/*Ende*/
-
-/* Kindselektor */	
-	main>div{
-		width: 15rem;
-		margin:auto;
+		background-color: white;
+		color: black;
+		margin: 5px;
+		border: 3px solid #343838;
+		padding: 5px;
+		font-size: 20px;
+		display: inline-block;
+		border-radius: 10px;
+		align-self: center;
 	}
 /************************************************************************/
 /* Klasse statt Masse */
 	/* header, main, button{ */
 	.containers {
-		margin: .7rem;
+		margin: 1rem;
 		padding: .5rem;
 		border: none;
-		background-color: rgb(250, 228, 189);
-	}
-
-	.header_bold {
-		font-weight: bold;
+		background-color: rgb(151, 217, 255);
+		opacity: 0.8;
+		box-shadow: 0 0  15px 4px rgba(0,0,0,0.06);
 	}
 
 	#header_article{
 		background: #343838;
 		color: white;
+		font-weight: bold;
 	}
-
-/************************************************************************/
-/* Kindselektor */
+	
 	#header_article > p{
-		margin-top: 1em;
 		text-align: center;
-		font-size: 25px;
+		font-size: 20px;
 	}
-
-/************************************************************************/
-/* ID-Selektor*/
-	#navigation {
-		min-width: 9rem;
-		background: #FF9900;
-		/***** Sticky *****
-		position: sticky;
-		top: 0;
-		width: 90%;*/
-	}
-
-	#anmerkung {
-		background-color: #e6f2f7;
-		border: 1px solid;	
-		border-color: #bbc5a7;
-		margin: 1rem;
-		padding: 0.2rem;
-		width:30%;
-		min-width: 10rem;
-	}
-
-	#anmerkung h3 {
-		background-color: #bbc5a7;
-		color: white;
-		margin: 0 0 0.5rem;
-	}
-
-	#navigation a:link {
-	  text-decoration: none;
-	  font-size: 1.1rem;
-	  color: #515151;
-	  display: block;
-	}
-
-/** Aufgabe Farbänderung für Hover #f1f1f1, #4f4f4f**/
-	#navigation a:hover {
-	  color: #f1f1f1;
-	  background-color: #4f4f4f;
-	}
-/* Ende */
 /*********************************************************/
 /* Zwischenbereich */
 @media (min-width: 40rem) and (max-width: 60rem){
 	body {
-		background-color:#D79922;
-		background-image:none;
-		display:grid;
 		grid-template-columns: 1fr 1fr;
-	}
-	.containers, #header_article {
-		background-color:#efe2ba;
-	}
-
-	#main_content, #header_section{
-		background-color:#f13c20;
-	}
-
-	/*border-box margin padding  beispiel*/
-	#main_content{
-		width: 20rem;
-		padding: 2rem;
-		border-color: #505050;
-		box-sizing: border-box;
-	}
-
-	#navigation {
-		background: #c5cbe3;
-	}
-
-	#header_section{
-		display:grid;
-		grid-template-columns: 1fr 2fr;
-	}
-
-	.button_div {
-		grid-column:1/3;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-	}
-
-	button {
-		width: auto;
 	}
 }
 
@@ -198,8 +94,8 @@
 /* Einstellungen, die erst bei einer Anzeige mit einer Breite von mindestens 40 Zeichen der Schriftgröße wirken */
 @media (min-width: 60rem){
 	body,html{
-		max-width: 80rem;
-		min-width: 60rem;
+		max-width: 40rem;
+		min-width: 30rem;
 		margin: 0 auto;
 	}   
 
@@ -215,33 +111,10 @@
 		font-size: 1.3rem; 
 	}
 
-
-/*******************************/
-/* Flexdesign */
-	.header_section_flex {
-		display: flex;
-		min-height: 10rem;
-		max-height: 20rem;
-		flex-direction: column; /*row-reverse, column, column-reverse*/
-		flex-wrap: nowrap; /*wrap*/
+	button:hover {
+		background-color: #343838;
+		color: white;
 	}
-
-	.button_div {
-		min-width: 35rem;
-		display: flex;
-		justify-content: space-between; /* flex-start, center, space-around*/
-	}
-
-	#navigation {
-		flex:1;
-		min-width: 9rem;
-	} 
-
-	#header_article {
-		flex:3;
-		min-width: 20rem;
-	}
-/************Ende Flex********************/
 }
 
 /***************************************************************/
@@ -270,43 +143,22 @@
 	margin:auto;
 }
 
-#p_geoloc, #geoloc button{
-	display:table-cell;
-	margin:auto;
-}
-
 #guess {
 	background-color: white;
-	width: 10%;
 	padding: 5px ;
-	margin: 5px;
 	box-sizing: border-box;
 	border-radius: 10px;
 	font-size: 20px;
 	border: 3px solid #555;
+	display: inline-block;
+	width: 10rem
 }
 
 #guess:focus {
 	box-shadow: 0 0  15px 4px rgba(0,0,0,0.06);
-	border: 3px solid rgb(0, 0, 0);
+	border: 3px solid #343838;
 }
 
-#submit {
-	background-color: white;
-	color: black;
-	border: 3px solid rgb(0, 0, 0);
-	padding: 5px;
-	font-size: 20px;
-	display: inline-block;
-	border-radius: 10px;
-	width: 10%;
-	height: 100%;
-}
-
-#submit:hover {
-	background-color: rgb(0, 0, 0);
-	color: white;
-}
 
 #guess_section {
 	text-align: center;
@@ -316,12 +168,15 @@
 
 
 #result_section {
-	margin: 3rem 20rem;
+	margin: 3rem 2rem;
 	padding: 2rem;
 	border: none;
-	background-color: rgb(0, 0, 0);
+	background-color: #343838;
 	color: white;
-	visibility: hidden;
+	display: none;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
 }
 
 #result_section > h1 {
@@ -330,6 +185,6 @@
 }
 
 #result_section > p {
-	font-size: 5rem;
+	font-size: 3rem;
 	text-align: center;
 }

@@ -1,21 +1,16 @@
-var koeriLatitude = 49.011636;
-var koeriLongitude = 8.416395;
+var cityLatitude = 49.011636;
+var cityLongitude = 8.416395;
 
 var currentLatitude = 0;
 var currentLongitude = 0;
 
 //If this code is not in a define call,
 //DO NOT use require('foo'), but use the async
-//callback version:
-fetch('files/de.json')
-	.then(response => response.json())
-	.then(json => console.log(json));
-
-
 /****************** GPS **************************/
 var x = document.getElementById("p_geoloc");
 
 getLocation();
+getNewCity();
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -33,7 +28,7 @@ function showPosition(position) {
 	currentLongitude = position.coords.longitude;
 
 	document.getElementById("distance").innerHTML = "distance: " + getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude,
-		koeriLatitude, koeriLongitude).toFixed(2) + "km";
+		cityLatitude, cityLongitude).toFixed(2) + "km";
 }
 
 function showError(error) {
@@ -54,6 +49,26 @@ function showError(error) {
 }
 /******************************************************/
 
+function getNewCity() {
+	fetch('files/de.json')
+	.then(response => response.json())
+	.then(function(json) {
+		cities = JSON.parse(JSON.stringify(json));
+		var random = Math.floor(Math.random() * cities.length);
+
+		while (cities[random].population < 500000) {
+			var random = Math.floor(Math.random() * cities.length);
+		}
+
+		document.getElementById("city").innerHTML = "How far is " + cities[random].city + "?";
+		cityLatitude = parseFloat(cities[random].lat);
+		cityLongitude = parseFloat(cities[random].lng);
+	});
+
+	document.getElementById("result_section").style.display = "none";
+}
+
+
 
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 	var R = 6371; // Radius of the earth in km
@@ -62,8 +77,7 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 	var a = 
 		Math.sin(dLat/2) * Math.sin(dLat/2) +
 		Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-		Math.sin(dLon/2) * Math.sin(dLon/2)
-		; 
+		Math.sin(dLon/2) * Math.sin(dLon/2); 
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 	var d = R * c; // Distance in km
 	return d;
@@ -77,7 +91,7 @@ function deg2rad(deg) {
 function guessDistance() {
 	var guess = parseFloat(document.getElementById("guess").value);
 	var actual = getDistanceFromLatLonInKm(currentLatitude, currentLongitude,
-		koeriLatitude, koeriLongitude);
+		cityLatitude, cityLongitude);
 
 	var diff = Math.abs(guess - actual);
 
@@ -107,14 +121,14 @@ function showResult(actualDistance, diff) {
 		expertise = "DO BETTER";
 		color = "rgb(255,100,0)";
 	} else {
-		expertise = "DO YOUR GEOGRAPHY";
+		expertise = "BAD GUESS";
 		color = "rgb(255,0,0)";
 	}
 
-	document.getElementById("expertise").innerHTML = expertise;
+	//document.getElementById("expertise").innerHTML = expertise;
 	document.getElementById("result_section").style.backgroundColor = color;
-	document.getElementById("result_section").style.visibility = "visible";
-	document.getElementById("distance").innerHTML = "Difference to solution: " + diff.toFixed(2) + "km \n (" + (ratio.toFixed(2)*100) + "%-deviation)";
+	document.getElementById("result_section").style.display = "flex";
+	document.getElementById("distance").innerHTML = "Difference to solution: " + diff.toFixed(2) + "km <br/> (" + Math.floor(ratio*100) + "%-deviation)";
 }
 
 

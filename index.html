@@ -16,20 +16,18 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<!-- async Seite weiterladen während Skript eingelesen wird!! -->
 		<script src="demo.js" async></script>
-		<script src="scripts/jquery-csv.js" async></script>
-		<script src="scripts/require.js"></script>
 	</head>
 	<body>
 		<header class="containers">
 			<h1>
-				[kœri]guesser
+				Distance-Guesser
 			</h1>
-			<section id="header_section" class="header_section_flex">
+			<section id="header_section">
 				<!-- Ein Element kann zu mehreren Klassen gehören -->
-				<article id="header_article" class="header_bold containers">
+				<article id="header_article" class="containers">
 					<p>
-						Guess your distance to [kœri]werk in Karlsruhe. <br>
-						Only [kœri]experts always know how far away the next [kœri]wurst is.
+						Guess your distance to the displayed city
+						and discover your geography expert level.
 					</p>
 				</article>
 			</section>
@@ -37,18 +35,18 @@
 
 		<main  class="containers">
 			<section id="guess_section">
-				<h1>What is your distance to [koeri]?</h1>
+				<h2 id="city">Ho far is [koeri]?</h2>
 				<input type="number" id ="guess" value="0" min = "0">
-				<button id="submit" onclick="guessDistance()">Guess</button>
+				<button id="submit" onclick="guessDistance()">GUESS</button>
 			</section>
 			<section id="geo_section">
 				<div id="geoloc">
 					<p id="p_geoloc">Geolocation not available.</p>
 				</div>
 			</section>
-			<section id="result_section" class="header_section_flex">
+			<section id="result_section">
 				<h1 id="distance">No Distance available</h1>
-				<p id ="expertise">That's Alright</p>
+				<button id="tryagain_button" onclick = "getNewCity()">TRY AGAIN</button>
 			</section>
 		</main>
 	</body>
