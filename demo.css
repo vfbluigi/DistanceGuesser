@@ -1,4 +1,4 @@
-﻿/* Universalselektor */
+﻿/* Generel Settings */
 	* {
 		font-family: Arial, Verdana, sans-serif; 
 		text-align: justify;
@@ -8,7 +8,6 @@
 		border-radius: 0.5rem;
 	}
 
-/* Allgemeine Einstellungen, gelten für alle Elemente mit diesem Namen*/
 	p { 
 		font-size:1rem
 	}
@@ -26,12 +25,12 @@
 	h3 { 
 		font-size: 1.2rem; 
 	}
-/* Für alle Überschriften Text zentrieren, untere margin 2rem*/
+
 	h1, h2, h3 {
 		text-align: center;
-		margin-bottom: 2rem;		
+		margin-bottom: 1rem;		
 	}
-/*Ende*/
+/************************************************************************/
 
 	body {
 		background-color: #343838;
@@ -39,9 +38,17 @@
 	}
 
 	main {
-		min-height: 23rem;
+		min-height: 15rem;
 		display:block;
 		text-align: center;
+	}
+
+	.containers {
+		margin: 1rem;
+		padding: .5rem;
+		border: none;
+		background-color: rgb(151, 217, 255);
+		box-shadow: 0 0  15px 4px rgba(0,0,0,0.1);
 	}
 
 	button {
@@ -60,38 +67,78 @@
 		border-radius: 10px;
 		align-self: center;
 	}
-/************************************************************************/
-/* Klasse statt Masse */
-	/* header, main, button{ */
-	.containers {
-		margin: 1rem;
-		padding: .5rem;
-		border: none;
-		background-color: rgb(151, 217, 255);
-		opacity: 0.8;
-		box-shadow: 0 0  15px 4px rgba(0,0,0,0.06);
-	}
 
-	#header_article{
+/*Header_Section*/
+
+	#description{
 		background: #343838;
 		color: white;
 		font-weight: bold;
 	}
 	
-	#header_article > p{
+	#description > p{
 		text-align: center;
 		font-size: 20px;
 	}
-/*********************************************************/
-/* Zwischenbereich */
-@media (min-width: 40rem) and (max-width: 60rem){
-	body {
-		grid-template-columns: 1fr 1fr;
-	}
-}
 
-/* Auch @media (min-device-width: 60rem) { */
-/* Einstellungen, die erst bei einer Anzeige mit einer Breite von mindestens 40 Zeichen der Schriftgröße wirken */
+/*Guess Section*/
+
+	#geoloc{
+		display:table;
+		margin:auto;
+		text-align: right;
+	}
+	#p_geoloc{
+		font-style: italic;
+	}
+
+	#guess_section {
+		text-align: center;
+		margin-top: 3rem;
+		flex-direction: column;
+	}
+	
+	#guess_input {
+		background-color: white;
+		padding: 5px ;
+		box-sizing: border-box;
+		border-radius: 10px;
+		font-size: 20px;
+		border: 3px solid;
+		border-color: #343838;
+		display: inline-block;
+		width: 10rem
+	}
+	
+	#guess_input:focus {
+		box-shadow: 0 0  15px 4px rgba(0,0,0,0.06);
+		border-color: rgb(0, 0, 0);
+	}
+	
+	#guess_input:invalid {
+		border-color: rgb(255, 0, 0);
+		background-color: rgb(233, 138, 138);
+	}
+	
+/*Result Section*/
+	#result_section {
+		margin: 3rem 2rem;
+		padding: 2rem;
+		border: none;
+		background-color: #343838;
+		color: white;
+		display: none;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+	
+	#result_section > h1 {
+		font-size: 1.5rem;
+		text-align: center;
+	}
+
+/* Settings for bigger pages (laptop) */
 @media (min-width: 60rem){
 	body,html{
 		max-width: 40rem;
@@ -115,76 +162,9 @@
 		background-color: #343838;
 		color: white;
 	}
-}
 
-/***************************************************************/
-/* Viewport Anzeige */
-
-#js-viewport-breitenanzeiger{
-	position: fixed;
-	top: 120px;
-	right: 20px;
-	z-index: 10000;
-	background: rgba(230,72,0,0.80);
-	border: 1px solid rgba(128,42,0,90);
-	box-shadow: 0px 0px 20px rgba(0,0,0,0.10);
-	padding: 10px;
-	font-size: 11px;
-	font-weight: bold;
-	color: rgba(255,255,255,1);
-	font-family: Arial, Verdana, sans-serif;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.50);
-	text-transform: uppercase;
-}
-
-/***************************************************************/
-#geoloc{
-	display:table;
-	margin:auto;
-}
-
-#guess {
-	background-color: white;
-	padding: 5px ;
-	box-sizing: border-box;
-	border-radius: 10px;
-	font-size: 20px;
-	border: 3px solid #555;
-	display: inline-block;
-	width: 10rem
-}
-
-#guess:focus {
-	box-shadow: 0 0  15px 4px rgba(0,0,0,0.06);
-	border: 3px solid #343838;
-}
-
-
-#guess_section {
-	text-align: center;
-	margin-top: 3rem;
-	flex-direction: column;
-}
-
-
-#result_section {
-	margin: 3rem 2rem;
-	padding: 2rem;
-	border: none;
-	background-color: #343838;
-	color: white;
-	display: none;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-}
-
-#result_section > h1 {
-	font-size: 2rem;
-	text-align: center;
-}
-
-#result_section > p {
-	font-size: 3rem;
-	text-align: center;
+	#result_section > h1 {
+		font-size: 2rem;
+		text-align: center;
+	}
 }

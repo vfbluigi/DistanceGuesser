@@ -1,37 +1,55 @@
-var cityLatitude = 49.011636;
-var cityLongitude = 8.416395;
+var cityLatitude = 0;
+var cityLongitude = 0;
 
-var currentLatitude = 0;
-var currentLongitude = 0;
+var userLatitude = 0;
+var userLongitude = 0;
 
-//If this code is not in a define call,
-//DO NOT use require('foo'), but use the async
-/****************** GPS **************************/
-var x = document.getElementById("p_geoloc");
+var cities = [];
 
-getLocation();
-getNewCity();
+var locationUsable = false;
+
+init();
+
+/******************************************************/
+function init(){
+	getLocation();
+	loadCities();
+	getNewCity();
+}
+
+function loadCities() {
+	var request = new XMLHttpRequest();  
+	request.open("GET", "files/country-capitals.csv", false);   
+	request.send(null);  
+
+	cities = $.csv.toObjects(request.responseText);
+	console.log(cities.length);
+}
+
+/******************************************************/
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        navigator.geolocation.getCurrentPosition(getPosition, showError);
     } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
+		locationUsable = false;
+        document.getElementById("p_geoloc").innerHTML = "Geolocation is not supported by this browser.";
     }
 }
 
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;	
+function getPosition(position) {
+	userLatitude = position.coords.latitude;
+	userLongitude = position.coords.longitude;
 
-	currentLatitude = position.coords.latitude;
-	currentLongitude = position.coords.longitude;
-
-	document.getElementById("distance").innerHTML = "distance: " + getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude,
-		cityLatitude, cityLongitude).toFixed(2) + "km";
+	document.getElementById("p_geoloc").innerHTML = "Uses your location";
+	locationUsable = true;
 }
 
 function showError(error) {
+
+	var x = document.getElementById("p_geoloc");
+	locationUsable = false;
+
     switch(error.code) {
         case error.PERMISSION_DENIED:
             x.innerHTML = "User denied the request for Geolocation."
@@ -50,22 +68,17 @@ function showError(error) {
 /******************************************************/
 
 function getNewCity() {
-	fetch('files/de.json')
-	.then(response => response.json())
-	.then(function(json) {
-		cities = JSON.parse(JSON.stringify(json));
-		var random = Math.floor(Math.random() * cities.length);
 
-		while (cities[random].population < 500000) {
-			var random = Math.floor(Math.random() * cities.length);
-		}
+	var random = Math.floor(Math.random() * cities.length);
 
-		document.getElementById("city").innerHTML = "How far is " + cities[random].city + "?";
-		cityLatitude = parseFloat(cities[random].lat);
-		cityLongitude = parseFloat(cities[random].lng);
-	});
+	var city = cities[random];
+
+	document.getElementById("city").innerHTML = "How far is " + city.capital + " (" + city.country + ")?";
+	cityLatitude = parseFloat(city.latitude);
+	cityLongitude = parseFloat(city.longitude);
 
 	document.getElementById("result_section").style.display = "none";
+	document.getElementById("guess_input").value = "";
 }
 
 
@@ -89,8 +102,18 @@ function deg2rad(deg) {
 
 
 function guessDistance() {
-	var guess = parseFloat(document.getElementById("guess").value);
-	var actual = getDistanceFromLatLonInKm(currentLatitude, currentLongitude,
+
+	if (!locationUsable) {
+		return;
+	}
+
+	var guess = parseFloat(document.getElementById("guess_input").value);
+
+	if (!(guess > 0)) {
+		return;
+	}
+
+	var actual = getDistanceFromLatLonInKm(userLatitude, userLongitude,
 		cityLatitude, cityLongitude);
 
 	var diff = Math.abs(guess - actual);
@@ -101,34 +124,25 @@ function guessDistance() {
 function showResult(actualDistance, diff) {
 
 	ratio = diff / actualDistance;
-
-	var expertise;
 	var color;
 
-	if(ratio < 0.01) {
-		expertise = "EXPERT";
+	if(ratio < 0.1) {
 		color = "rgb(0,255,0)";
-	} else if(ratio < 0.05) {
-		expertise = "AWESOME";
-		color = "rgb(0,100,0)";
-	} else if(ratio < 0.1) {
-		expertise = "GOOD";
-		color = "rgb(100,170,100)";
 	} else if(ratio < 0.2) {
-		expertise = "ALRIGHT";
-		color = "rgb(255,255,0)";
-	} else if(ratio < 0.5) {
-		expertise = "DO BETTER";
-		color = "rgb(255,100,0)";
+		color = "rgb(0,100,0)";
+	} else if(ratio < 0.4) {
+		color = "rgb(168,158,50)";
+	} else if(ratio < 0.7) {
+		color = "rgb(168,125,50)";
+	} else if(ratio < 1) {
+		color = "rgb(168,70,50)";
 	} else {
-		expertise = "BAD GUESS";
 		color = "rgb(255,0,0)";
 	}
 
-	//document.getElementById("expertise").innerHTML = expertise;
 	document.getElementById("result_section").style.backgroundColor = color;
 	document.getElementById("result_section").style.display = "flex";
-	document.getElementById("distance").innerHTML = "Difference to solution: " + diff.toFixed(2) + "km <br/> (" + Math.floor(ratio*100) + "%-deviation)";
+	document.getElementById("distance").innerHTML = "Correct solution: " + actualDistance.toFixed(2) + "km </br>" + "Difference: " + diff.toFixed(2) + "km";
 }
 
 
